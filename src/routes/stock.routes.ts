@@ -1,6 +1,6 @@
 // src/stock.routes.ts
 import express from 'express';
-import { createStock, getStockById, updateStock, deleteStock, getAllStocks } from '../controllers/stock.controller';
+import { createStock, getStockById, updateStock, deleteStock, getAllStocks, getStockBySymbol } from '../controllers/stock.controller';
 
 const router = express.Router();
 
@@ -14,8 +14,14 @@ router.get('/', async (req, res) => {
     res.status(201).json(stocks);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/m_id/:id', async (req, res) => {
     const stock = await getStockById(req.params.id);
+    if (!stock) return res.status(404).json({ message: 'Stock not found' });
+    res.json(stock);
+});
+
+router.get('/:id', async (req, res) => {
+    const stock = await getStockBySymbol(req.params.id);
     if (!stock) return res.status(404).json({ message: 'Stock not found' });
     res.json(stock);
 });

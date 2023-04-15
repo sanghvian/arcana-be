@@ -17,7 +17,7 @@ export interface Stock extends Document {
 }
 
 const stockSchema = new Schema({
-  _id: { type: String },
+  id: { type: String },
   name: { type: String, required: true },
   symbol: { type: String, required: true },
   description: { type: String, required: true },
