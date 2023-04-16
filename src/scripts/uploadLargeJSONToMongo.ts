@@ -11,48 +11,50 @@ async function main() {
     try {
         await client.connect();
 
-        const collection = client.db('test').collection('stockstat');
+        const collection = client.db('test').collection('stockstatssss');
         let index = 0;
 
-        const fileStream = fs.createReadStream('/Users/ankitsanghvi/Desktop/arcana_backend/src/data/timeseries/mega3.json', 'utf-8');
+        const fileStream = fs.createReadStream('/Users/ankitsanghvi/Desktop/arcana_backend/src/data/timeseries/mega4.json', 'utf-8');
         const jsonParser = parser();
         const jsonStream = streamArray();
         const errorLogStream = fs.createWriteStream('error_log.txt', { flags: 'a' });
 
         const pipeline = chain([fileStream, jsonParser, jsonStream]);
 
-        jsonStream.on('data', ({ key, value }) => {
-            jsonStream.pause(); // Pause the stream
+        async function* iterablePipeline() {
+            const iterator = pipeline[Symbol.asyncIterator]();
 
-            collection.insertOne(value)
-                .then(() => {
-                    console.log(`Inserted document ${index + 1}`);
-                    index++;
-                    jsonStream.resume(); // Resume the stream
-                })
-                .catch((error) => {
-                    console.error(`Error inserting document ${index + 1}:`, error);
-                    errorLogStream.write(`Error inserting document ${index + 1}: ${error}\n`);
-                    jsonStream.resume(); // Resume the stream
-                });
-        });
+            while (true) {
+                try {
+                    const { done, value } = await iterator.next();
+                    if (done) break;
+                    yield value;
+                } catch (error) {
+                    console.error('Error during parsing or streaming:', error);
+                    errorLogStream.write(`Error during parsing or streaming: ${error}\n`);
+                }
+            }
+        }
 
-        pipeline.on('end', async () => {
-            console.log('Data inserted successfully');
-            errorLogStream.end();
-            await client.close();
-        });
+        const processDocument = async ({ key, value }: any) => {
+            console.log(`Processing document ${index + 1}:`, JSON.stringify(value));
+            try {
+                await collection.insertOne(value);
+                console.log(`Inserted document ${index + 1}`);
+            } catch (error) {
+                console.error(`Error inserting document ${index + 1}:`, error);
+                errorLogStream.write(`Error inserting document ${index + 1}: ${error}\n`);
+            }
+            index++;
+        };
 
-        pipeline.on('error', (error) => {
-            console.error('Pipeline error:', error);
-            errorLogStream.write(`Pipeline error: ${error}\n`);
-        });
+        for await (const item of iterablePipeline()) {
+            await processDocument(item);
+        }
 
-        jsonParser.on('error', (error) => {
-            console.error('Parser error:', error);
-            errorLogStream.write(`Parser error: ${error}\n`);
-            jsonParser.resume(); // Resume the parsing process
-        });
+        console.log('Data inserted successfully');
+        errorLogStream.end();
+        await client.close();
     } catch (error) {
         console.error('Error:', error);
         await client.close();
