@@ -5,7 +5,7 @@ import fs from 'fs';
 const data = JSON.parse(fs.readFileSync('/Users/ankitsanghvi/Desktop/arcana_backend/src/data/metadata/stock-metadata.json', 'utf-8'));
 
 // MongoDB connection configuration
-const uri = 'mongodb+srv://arcanadmin:n7V499wP6eZXFBMi@cluster0.xiytxpy.mongodb.net/test';
+const uri = '....';
 const dbName = 'test';
 const collectionName = 'stocks';
 

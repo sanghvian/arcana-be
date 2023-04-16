@@ -5,7 +5,7 @@ import { streamArray } from 'stream-json/streamers/StreamArray';
 import { chain } from 'stream-chain';
 
 async function main() {
-    const uri = 'mongodb+srv://arcanauser:3Oh5sK2KL00IXqSV@cluster0.ettzzhe.mongodb.net/test?retryWrites=true&w=majority';
+    const uri = '...';
     const client = new MongoClient(uri);
 
     try {
