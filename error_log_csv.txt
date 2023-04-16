@@ -1,0 +1,2 @@
+Error processing document CUZ: MongoBulkWriteError: you are over your space quota, using 518 MB of 512 MB
+Error processing document A: MongoBulkWriteError: you are over your space quota, using 518 MB of 512 MB
