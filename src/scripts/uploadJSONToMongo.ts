@@ -2,12 +2,12 @@ import { MongoClient } from 'mongodb';
 import fs from 'fs';
 
 // Read data from JSON file
-const data = JSON.parse(fs.readFileSync('/Users/ankitsanghvi/Desktop/arcana_backend/src/data/timeseries/mega.json', 'utf-8'));
+const data = JSON.parse(fs.readFileSync('/Users/ankitsanghvi/Desktop/arcana_backend/src/data/metadata/stock-metadata.json', 'utf-8'));
 
 // MongoDB connection configuration
-const uri = 'mongodb+srv://arcanauser:3Oh5sK2KL00IXqSV@cluster0.ettzzhe.mongodb.net';
+const uri = 'mongodb+srv://arcanadmin:n7V499wP6eZXFBMi@cluster0.xiytxpy.mongodb.net/test';
 const dbName = 'test';
-const collectionName = 'stockstats';
+const collectionName = 'stocks';
 
 // Connect to MongoDB and upload data
 const uploadDataToMongoDB = async () => {

@@ -3,7 +3,7 @@ import path from 'path';
 import csvParser from 'csv-parser';
 
 // Replace this with the path to your directory containing the CSV files
-const csvDirectory = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/stocks2';
+const csvDirectory = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/stocks3';
 
 async function isCsvEmpty(filePath: string): Promise<boolean> {
     return new Promise((resolve, reject) => {

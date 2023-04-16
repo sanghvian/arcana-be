@@ -6,7 +6,7 @@ import csvParser from 'csv-parser';
 
 // Replace the following with your own MongoDB connection URI and folder path
 const uri = 'mongodb+srv://arcanadmin:n7V499wP6eZXFBMi@cluster0.xiytxpy.mongodb.net/test';
-const folderPath = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/stocks2';
+const folderPath = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/stocks3';
 const errorLogStream = fs.createWriteStream('error_log_csv.txt', { flags: 'a' });
 
 
@@ -33,7 +33,7 @@ async function uploadDataToMongo(uri: string, collectionName: string, data: any[
         const client = new MongoClient(uri);
         await client.connect();
         const db = client.db('test'); // Replace with your database name
-        const collection = db.collection(collectionName);
+        const collection = db.collection('stockstats');
 
         await collection.insertMany(data);
 
