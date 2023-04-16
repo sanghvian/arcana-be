@@ -22,7 +22,6 @@ export async function getAllStockStats(): Promise<StockStat[]> {
     return await StockStatModel.find();
 }
 
-
 export async function updateStockStat(symbol: string, updates: Partial<StockStat>): Promise<StockStat | null> {
     const updatedStockStat = await StockStatModel.findOneAndUpdate(
         { symbol },
