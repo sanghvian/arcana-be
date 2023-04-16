@@ -11,8 +11,8 @@ const pipelineAsync = promisify(pipeline);
 // Set the AWS region
 AWS.config.update({
     region: 'ap-south-1',
-    accessKeyId: 'AKIAXVK5ZIQT3XLR5TFG',
-    secretAccessKey: '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',
+    accessKeyId: '...',
+    secretAccessKey: '...',
 });
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const tableName = 'stockdata'; // Replace with your DynamoDB table name
