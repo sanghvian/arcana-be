@@ -13,7 +13,7 @@ interface CsvRow {
 }
 
 interface JsonObject {
-    stock_id: string;
+    stock_symbol: string;
     date: string;
     close: number;
     volume: number;
@@ -21,7 +21,7 @@ interface JsonObject {
 }
 
 const csvDirectory = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/stocks';
-const outputFilePath = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/timeseries/mega.json';
+const outputFilePath = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/timeseries/mega3.json';
 
 async function processCsvFile(filePath: string) {
     const csvData = await fs.promises.readFile(filePath, 'utf-8');
@@ -37,7 +37,7 @@ async function processCsvFile(filePath: string) {
                 }
 
                 const jsonObjects: JsonObject[] = results.data.map((row) => ({
-                    stock_id: row.symbol,
+                    stock_symbol: row.symbol,
                     date: row.ds,
                     close: +row.close,
                     volume: +row.volume,

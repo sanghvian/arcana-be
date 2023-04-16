@@ -31,3 +31,4 @@ const uploadDataToMongoDB = async () => {
 };
 
 uploadDataToMongoDB();
+
