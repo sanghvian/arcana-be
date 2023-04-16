@@ -11,7 +11,7 @@ async function main() {
     try {
         await client.connect();
 
-        const collection = client.db('test').collection('stockstat');
+        const collection = client.db('test').collection('stockstatsssssss');
         let index = 0;
 
         const fileStream = fs.createReadStream('/Users/ankitsanghvi/Desktop/arcana_backend/src/data/timeseries/mega4.json', 'utf-8');

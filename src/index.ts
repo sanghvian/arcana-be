@@ -2,6 +2,7 @@
 import { createApp } from './app';
 import { connectDb } from './db';
 import stockRoutes from './routes/stock.routes';
+import stockStatRoutes from './routes/stockstat.routes';
 
 
 const PORT = process.env.PORT || 3000;
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3000;
     const app = createApp();
 
     app.use('/stocks', stockRoutes);
+    app.use('/stock/timeseries', stockStatRoutes);
     // Create a simple healthcheck endpoint on the "/" route of the express app that returns a simple hello world message
     app.get('/', (req, res) => {
         res.send('Hello World!');
