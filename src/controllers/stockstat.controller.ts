@@ -14,7 +14,7 @@ export async function getStockStatById(id: string): Promise<StockStat | null> {
 }
 
 export async function getStockStatBySymbol(symbol: string): Promise<StockStat[] | null> {
-    const tickers = await StockStatModel.find({ stock_symbol: symbol });
+    const tickers = await StockStatModel.find({ symbol });
     return tickers;
 }
 

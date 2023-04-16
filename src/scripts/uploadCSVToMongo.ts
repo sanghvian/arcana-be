@@ -6,7 +6,7 @@ import csvParser from 'csv-parser';
 
 // Replace the following with your own MongoDB connection URI and folder path
 const uri = 'mongodb+srv://arcanauser:3Oh5sK2KL00IXqSV@cluster0.ettzzhe.mongodb.net/test';
-const folderPath = '';
+const folderPath = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/stocks2';
 
 async function readCsvFile(filePath: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
@@ -29,8 +29,8 @@ async function uploadDataToMongo(uri: string, collectionName: string, data: any[
     try {
         const client = new MongoClient(uri);
         await client.connect();
-        const db = client.db('myDatabase'); // Replace with your database name
-        const collection = db.collection(collectionName);
+        const db = client.db('test'); // Replace with your database name
+        const collection = db.collection('stockstats');
 
         await collection.insertMany(data);
 

@@ -4,7 +4,6 @@ import { connectDb } from './db';
 import stockRoutes from './routes/stock.routes';
 import stockStatRoutes from './routes/stockstat.routes';
 
-
 const PORT = process.env.PORT || 3000;
 (async () => {
     await connectDb();
