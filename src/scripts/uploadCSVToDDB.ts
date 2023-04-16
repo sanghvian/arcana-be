@@ -25,28 +25,39 @@ let batchItems: any[] = [];
 let processedKeys: Set<string> = new Set();
 
 async function storeRowInDynamoDB(row: any): Promise<void> {
+    const close = row.close ? parseFloat(row.close) : null;
+    const volume = row.volume ? parseInt(row.volume, 10) : null;
+    const volatility = row.volatility ? parseFloat(row.volatility) : null;
+    const value_at_risk = row.value_at_risk ? parseFloat(row.value_at_risk) : null;
+
+    // Validate the numeric values
+    // if (isNaN(close) || isNaN(volume) || isNaN(volatility) || isNaN(value_at_risk)) {
+    //     console.warn(`Invalid data in row: ${JSON.stringify(row)}`);
+    //     return;
+    // }
+
     const item = {
         ds: row.ds,
         symbol: row.symbol,
-        close: row.close ? parseFloat(row.close) : null,
-        volume: row.volume ? parseInt(row.volume, 10) : null,
-        volatility: row.volatility ? parseFloat(row.volatility) : null,
-        value_at_risk: row.value_at_risk ? parseFloat(row.value_at_risk) : null,
+        close: close,
+        volume: volume,
+        volatility: volatility,
+        value_at_risk: value_at_risk,
     };
 
-    const itemKey = `${item.ds}-${item.symbol}`;
-    if (processedKeys.has(itemKey)) {
-        console.warn(`Duplicate item detected: ${itemKey}`);
-        return;
-    }
+    const params: AWS.DynamoDB.DocumentClient.PutItemInput = {
+        TableName: tableName,
+        Item: item,
+    };
 
-    processedKeys.add(itemKey);
-    batchItems.push(item);
-
-    if (batchItems.length >= BATCH_SIZE) {
-        await flushBatchItemsToDynamoDB();
+    try {
+        await dynamoDb.put(params).promise();
+    } catch (error) {
+        console.error(`Error storing row in DynamoDB:`, error);
     }
 }
+
+
 async function flushBatchItemsToDynamoDB(): Promise<void> {
     if (batchItems.length === 0) return;
 
@@ -129,8 +140,8 @@ async function main(): Promise<void> {
 
         for (const csvFile of csvFiles) {
             const filePath = path.join(csvDirectory, csvFile);
-            // await processCsvFile(filePath);
-            await processStreamCsvFile(filePath);
+            await processCsvFile(filePath);
+            // await processStreamCsvFile(filePath);
         }
 
         await flushBatchItemsToDynamoDB(); // Flush any remaining items

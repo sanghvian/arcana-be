@@ -5,7 +5,7 @@ import path from 'path';
 import csvParser from 'csv-parser';
 
 // Replace the following with your own MongoDB connection URI and folder path
-const uri = 'mongodb+srv://arcanauser:3Oh5sK2KL00IXqSV@cluster0.ettzzhe.mongodb.net/test';
+const uri = 'mongodb+srv://arcanadmin:n7V499wP6eZXFBMi@cluster0.xiytxpy.mongodb.net/test';
 const folderPath = '/Users/ankitsanghvi/Desktop/arcana_backend/src/data/stocks2';
 const errorLogStream = fs.createWriteStream('error_log_csv.txt', { flags: 'a' });
 
