@@ -4,3 +4,4 @@ Pipeline error: Error: Parser cannot parse input: expected a value
 Parser error: Error: Parser cannot parse input: expected a value
 Pipeline error: Error: Parser cannot parse input: expected a value
 Parser error: Error: Parser cannot parse input: expected a value
+Error during parsing or streaming: Error: Parser cannot parse input: expected a value

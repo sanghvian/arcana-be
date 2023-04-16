@@ -11,7 +11,7 @@ async function main() {
     try {
         await client.connect();
 
-        const collection = client.db('test').collection('stockstatssss');
+        const collection = client.db('test').collection('stockstat');
         let index = 0;
 
         const fileStream = fs.createReadStream('/Users/ankitsanghvi/Desktop/arcana_backend/src/data/timeseries/mega4.json', 'utf-8');
@@ -20,21 +20,6 @@ async function main() {
         const errorLogStream = fs.createWriteStream('error_log.txt', { flags: 'a' });
 
         const pipeline = chain([fileStream, jsonParser, jsonStream]);
-
-        async function* iterablePipeline() {
-            const iterator = pipeline[Symbol.asyncIterator]();
-
-            while (true) {
-                try {
-                    const { done, value } = await iterator.next();
-                    if (done) break;
-                    yield value;
-                } catch (error) {
-                    console.error('Error during parsing or streaming:', error);
-                    errorLogStream.write(`Error during parsing or streaming: ${error}\n`);
-                }
-            }
-        }
 
         const processDocument = async ({ key, value }: any) => {
             console.log(`Processing document ${index + 1}:`, JSON.stringify(value));
@@ -48,8 +33,14 @@ async function main() {
             index++;
         };
 
-        for await (const item of iterablePipeline()) {
-            await processDocument(item);
+        for await (const item of pipeline) {
+            try {
+                await processDocument(item);
+            } catch (error) {
+                console.error(`Error processing document ${index + 1}:`, error);
+                errorLogStream.write(`Error processing document ${index + 1}: ${error}\n`);
+                index++;
+            }
         }
 
         console.log('Data inserted successfully');
