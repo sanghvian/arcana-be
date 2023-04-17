@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
-    "rnpcdt": "ts-node-dev --respawn --transpile-only src/scripts/readAndParseCsvData.ts",
     "build": "tsc",
     "serve": "node dist/index.js"
   },
