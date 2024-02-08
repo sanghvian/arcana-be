@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "fb845008-0433-4513-a39b-79a35d93c973",
+		"name": "[🔴] CoffeeCan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14575450",
+		"_collection_link": "https://coursemappers.postman.co/workspace/Coursepanel~0a86b1c5-87ed-4135-99a1-a97731192b3b/collection/14575450-fb845008-0433-4513-a39b-79a35d93c973?action=share&source=collection_link&creator=14575450"
+	},
+	"item": [
+		{
+			"name": "Stock",
+			"item": [
+				{
+					"name": "Create Stock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"SAPPLE INC.\",\n    \"symbol\": \"AAAAAAAA\",\n    \"sector\": \"Technology\",\n    \"lastDiv\": 0.92,\n    \"range\": \"124.17-176.15\",\n    \"beta\": 1.297088,\n    \"volAvg\": 65275362,\n    \"industry\": \"Consumer Electronics\",\n    \"website\": \"https://www.apple.com\",\n    \"ceo\": \"Mr. Timothy D. Cook\",\n    \"image\": \"https://financialmodelingprep.com/image-stock/AAPL.png\",\n    \"description\": \"Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. It also sells various related services. In addition, the company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; AirPods Max, an over-ear wireless headphone; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, HomePod, and iPod touch. Further, it provides AppleCare support services; cloud services store services; and operates various platforms, including the App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts. Additionally, the company offers various services, such as Apple Arcade, a game subscription service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was incorporated in 1977 and is headquartered in Cupertino, California.\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/stocks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update stock",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"SAPPLE INC.\",\n    \"symbol\": \"AAAAAAAA\",\n    \"industry\": \"Consumer Electronics\",\n    \"website\": \"https://www.apple.com\",\n    \"ceo\": \"Dr Ankit Cooker\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/stocks/AAAA",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stocks",
+								"AAAA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get stock by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/stocks/ADSK",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stocks",
+								"ADSK"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all stocks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/stocks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete stock",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/stocks/AAAAAAAA",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stocks",
+								"AAAAAAAA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete stock",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.arcana.coursepanel.in/stocks/complete/AAPL",
+							"protocol": "https",
+							"host": [
+								"api",
+								"arcana",
+								"coursepanel",
+								"in"
+							],
+							"path": [
+								"stocks",
+								"complete",
+								"AAPL"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TimeSeries",
+			"item": [
+				{
+					"name": "Stock data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/stock/timeseries/by-symbol/MSFT",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"stock",
+								"timeseries",
+								"by-symbol",
+								"MSFT"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "News",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.alphavantage.co/query?function=NEWS_SENTIMENT&ticker=ADSK&apikey={{apiKey}}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"alphavantage",
+						"co"
+					],
+					"path": [
+						"query"
+					],
+					"query": [
+						{
+							"key": "function",
+							"value": "NEWS_SENTIMENT"
+						},
+						{
+							"key": "ticker",
+							"value": "ADSK"
+						},
+						{
+							"key": "apikey",
+							"value": "{{apiKey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiKey",
+			"value": "SLLKCQL1JYMRS300",
+			"type": "string"
+		}
+	]
+}
